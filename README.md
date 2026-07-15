@@ -101,6 +101,7 @@ Answer: b) Simulation of human intelligence
 ```
 
 ---
+<img width="755" height="515" alt="image" src="https://github.com/user-attachments/assets/fc523c46-6eec-4889-808e-a9847a569cc1" />
 
 ## 💡 Use Cases
 
