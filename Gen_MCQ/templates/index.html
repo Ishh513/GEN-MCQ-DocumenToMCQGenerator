@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GEN MCQ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f2f5f7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0077b6;
+            margin-bottom: 30px;
+            font-weight: bold;
+            /* Symbols before and after */
+            position: relative;
+        }
+        h1::after {
+            content: " 💡";
+            font-size: 1.0em;
+        }
+        label {
+            font-weight: bold;
+            color: #023e8a;
+        }
+        input[type="file"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 6px 0 15px 0;
+            border: 1px solid #adb5bd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+        input[type="checkbox"] {
+            transform: scale(1.2);
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        input[type="submit"] {
+            background-color: #0077b6;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #0096c7;
+        }
+        .error {
+            color: red;
+            background: #ffccd5;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            color: red;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 18px;
+        }
+    </style>
+    <script>
+        function closeWarning() {
+            var warningDiv = document.getElementById('warningDiv');
+            if (warningDiv) {
+                warningDiv.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>GEN_MCQ</h1>
+        {% if warning %}
+            <div class="error" id="warningDiv">
+                {{ warning }}
+                <span class="close-btn" onclick="closeWarning()">×</span>
+            </div>
+        {% endif %}
+        <form action="{{ url_for('generate') }}" method="POST" enctype="multipart/form-data">
+            <label for="file">Upload File (PDF, DOCX, TXT):</label>
+            <input type="file" name="file" required>
+            <label for="num_questions">Number of MCQs (max 100):</label>
+            <input type="number" name="num_questions" min="1" max="100" required>
+            <label for="difficulty">Difficulty:</label>
+            <select name="difficulty" required>
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+            </select>
+            <label>
+                <input type="checkbox" name="with_answer"> Include Answers
+            </label><br>
+            <label>
+                <input type="checkbox" name="summary_based"> Generate Summary
+            </label><br><br>
+            <input type="submit" value="Generate MCQs">
+        </form>
+    </div>
+</body>
+</html>

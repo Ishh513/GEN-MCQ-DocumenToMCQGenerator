@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generated MCQs</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f2f5f7;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            background: #ffffff;
+            padding: 30px 40px;
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #0077b6;
+            margin-bottom: 15px;
+        }
+        .box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #0077b6;
+            margin-bottom: 25px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+        .error {
+            color: #b00020;
+            background: #ffe0e6;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 5px solid #b00020;
+            font-weight: 500;
+        }
+        .download-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            gap: 2%;
+        }
+        .download-btn {
+            background: #0077b6;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            width: 48%;
+            text-align: center;
+        }
+        .download-btn:hover {
+            background: #0096c7;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            .box {
+                padding: 15px;
+            }
+            .download-btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .download-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    {% if warning %}
+        <div class="error">{{ warning }}</div>
+    {% endif %}
+    {% if summary_text %}
+        <h2>Summary</h2>
+        <div class="box">{{ summary_text }}</div>
+    {% endif %}
+    <h2>Generated MCQs</h2>
+    <div class="box">{{ mcqs }}</div>
+
+    {% if time_taken %}
+        <div style="margin-top: 20px;">
+            <strong>Time taken for MCQ generation:</strong> {{ time_taken }} seconds
+        </div>
+    {% endif %}
+
+    <div class="download-container">
+        <a class="download-btn" href="{{ url_for('download_file', filename=docx_filename) }}">📄 Download DOCX</a>
+        <a class="download-btn" href="{{ url_for('download_file', filename=pdf_filename) }}">📄 Download PDF</a>
+        {% if key_pdf_filename %}
+            <a class="download-btn" href="{{ url_for('download_file', filename=key_pdf_filename) }}">📄 Download Key Answers as PDF</a>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>
